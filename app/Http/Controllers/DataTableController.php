@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Merk;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -40,6 +41,31 @@ class DataTableController extends Controller
                 return $img;
             })
             ->rawColumns(['action', 'role', 'avatar'])
+            ->make(true);
+    }
+
+    public function getMerks(Request $request)
+    {
+        $merkQuery = Merk::query();
+
+        $merks = $merkQuery->latest()->get(['id', 'name']);
+
+        return datatables()->of($merks)
+            ->addIndexColumn()
+            ->editColumn('name', fn($merk)=>str()->title($merk->name))
+            ->addColumn('action', function ($merk) {
+                $buttons = '<button onclick="updateData(\''.$merk->id.'\')" class="btn btn-warning btn-sm">
+                    <i class="fas fa-pencil-alt"></i>
+                    </button>
+                    
+                    <button onclick="deleteData(\''.$merk->id.'\')" class="btn btn-danger btn-sm">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                    ';
+
+                return $buttons;
+            })
+            ->rawColumns(['action'])
             ->make(true);
     }
 }
