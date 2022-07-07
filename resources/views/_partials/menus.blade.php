@@ -19,7 +19,7 @@
 </li>
 <li class="nav-item">
     <a class="nav-link {{ $routeActive == 'merks.index' ? 'active' : '' }}" href="{{ route('merks.index') }}">
-        <i class="fas fa-book text-success"></i>
+        <i class="fas fa-book text-primary"></i>
         <span class="nav-link-text">Merks</span>
     </a>
 </li>

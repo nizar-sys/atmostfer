@@ -232,25 +232,26 @@
     <script src="{{ asset('/assets/plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
     <script src="{{ asset('/assets/plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.js"></script>
     <script>
         @if (Session::has('success'))
-            Snackbar.show({
+        Snackbar.show({
             text: "{{ session('success') }}",
             backgroundColor: '#28a745',
             actionTextColor: '#212529',
         })
         @elseif (Session::has('error'))
-            Snackbar.show({
+        Snackbar.show({
             text: "{{ session('error') }}",
             backgroundColor: '#dc3545',
             actionTextColor: '#212529',
         })
         @elseif (Session::has('info'))
-            Snackbar.show({
+        Snackbar.show({
             text: "{{ session('info') }}",
             backgroundColor: '#17a2b8',
             actionTextColor: '#212529',
-            })
+        })
         @endif;
     </script>
 

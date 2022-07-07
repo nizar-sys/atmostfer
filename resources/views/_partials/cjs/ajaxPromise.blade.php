@@ -1,5 +1,5 @@
 <script>
-    function hitData(url, data, type) {
+    function hitData(url, data, type, ...args) {
         return new Promise((resolve, reject)=>{
             $.ajaxSetup({
                 headers: {
@@ -11,6 +11,7 @@
                 url: url,
                 type: type,
                 data: data,
+                ...args,
                 success: function (response) {
                     resolve(response);
                 },
@@ -19,5 +20,14 @@
                 }
             });
         })
+    }
+
+    function inputInvalid(responseError) {
+        for (var i in responseError) {
+            $(`#${i + '-input'}`).addClass("is-invalid");
+            for (var j in responseError[i]) {
+                $(`#${i + '-input'}`).parent().find('.invalid-feedback').html(`${responseError[i][j]}`)
+            }
+        }
     }
 </script>
