@@ -23,6 +23,12 @@
         <span class="nav-link-text">Merks</span>
     </a>
 </li>
+<li class="nav-item">
+    <a class="nav-link {{ $routeActive == 'products.index' ? 'active' : '' }}" href="{{ route('products.index') }}">
+        <i class="fas fa-book text-default"></i>
+        <span class="nav-link-text">Products</span>
+    </a>
+</li>
 @endif
 <li class="nav-item">
     <a class="nav-link {{ $routeActive == 'profile' ? 'active' : '' }}" href="{{ route('profile') }}">

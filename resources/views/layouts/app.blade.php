@@ -50,7 +50,10 @@
     <link rel="stylesheet" href="{{ asset('/assets/css//snackbar.min.css') }}">
     <script src="{{ asset('/assets/js/snackbar.min.js') }}"></script>
     {{-- <script src="{{ asset('/assets/js/instascan.min.js') }}"></script> --}}
-    <script src="https://rawgit.com/schmich/instascan-builds/master/instascan.min.js"></script>
+    <script src="{{ asset('/assets/vendor/jquery/dist/jquery.min.js') }}"></script>
+
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
     @yield('c_css')
 </head>
@@ -201,7 +204,6 @@
     </div>
     <!-- Argon Scripts -->
     <!-- Core -->
-    <script src="{{ asset('/assets/vendor/jquery/dist/jquery.min.js') }}"></script>
     <script src="{{ asset('/assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('/assets/vendor/js-cookie/js.cookie.js') }}"></script>
     <script src="{{ asset('/assets/vendor/jquery.scrollbar/jquery.scrollbar.min.js') }}"></script>
@@ -232,7 +234,6 @@
     <script src="{{ asset('/assets/plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
     <script src="{{ asset('/assets/plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.js"></script>
     <script>
         @if (Session::has('success'))
         Snackbar.show({
@@ -254,7 +255,6 @@
         })
         @endif;
     </script>
-
     @yield('script')
 </body>
 

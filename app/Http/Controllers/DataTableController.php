@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Merk;
+use App\Models\Product;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -59,6 +60,34 @@ class DataTableController extends Controller
                     </button>
                     
                     <button onclick="deleteData(\''.$merk->id.'\')" class="btn btn-danger btn-sm">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                    ';
+
+                return $buttons;
+            })
+            ->rawColumns(['action'])
+            ->make(true);
+    }
+
+    public function getProducts(Request $request)
+    {
+        $productQuery = Product::query();
+
+        $products = $productQuery->latest()->get(['id', 'name', 'description', 'price', 'merk_id']);
+
+        return datatables()->of($products)
+            ->addIndexColumn()
+            ->editColumn('name', fn($product)=>str()->title($product->name))
+            ->editColumn('description', fn($product)=>str()->limit($product->description, 20))
+            ->editColumn('price', fn($product)=>'Rp.'. number_format($product->price, 0, ',', '.'))
+            ->editColumn('merk_id', fn($product)=>str()->title($product->merk->name))
+            ->addColumn('action', function ($product) {
+                $buttons = '<button onclick="updateData(\''.$product->id.'\')" class="btn btn-warning btn-sm">
+                    <i class="fas fa-pencil-alt"></i>
+                    </button>
+                    
+                    <button onclick="deleteData(\''.$product->id.'\')" class="btn btn-danger btn-sm">
                         <i class="fas fa-trash"></i>
                     </button>
                     ';

@@ -1,9 +1,12 @@
 <script>
+    $(document).ready(()=>{
+        $('.select-custom').select2();
+    })
     var tablePengguna = $('#table-data').DataTable({
         processing: true,
         serverSide: true,
-        responsive: true,
-        ajax: "{{ route('datatable.merks') }}",
+        responsive: false,
+        ajax: "{{ route('datatable.products') }}",
         columns: [{
                 data: 'DT_RowIndex',
                 name: 'DT_RowIndex',
@@ -12,6 +15,15 @@
             },
             {
                 data: 'name'
+            },
+            {
+                data: 'merk_id'
+            },
+            {
+                data: 'price'
+            },
+            {
+                data: 'description'
             },
             {
                 data: 'action',
@@ -39,13 +51,13 @@
         dom: 'Blfrtip',
         buttons: [{
                 extend: 'excelHtml5',
-                title: 'Data Merk',
+                title: 'Data Products',
                 text: '<i class="fas fa-file-excel"></i> Excel',
                 className: 'btn btn-sm btn-success',
                 exportOptions: {
                     stripHtml: false,
-                    columns: [1],
-                    sheetName: 'Data Merk',
+                    columns: [0, 1, 2, 3, 4],
+                    sheetName: 'Data Products',
                     sheetHeader: true,
                     sheetFooter: false,
                     exportData: {
@@ -55,21 +67,21 @@
             },
             {
                 extend: 'pdfHtml5',
-                title: 'Data Merk',
+                title: 'Data Products',
                 text: '<i class="fas fa-file-pdf"></i> PDF',
                 className: 'btn btn-sm btn-danger',
                 exportOptions: {
-                    columns: [0, 1]
+                    columns: [0, 1, 2, 3, 4]
                 },
             },
             {
                 extend: 'print',
-                title: 'Data Merk',
+                title: 'Data Products',
                 text: '<i class="fas fa-print"></i> Print',
                 className: 'btn btn-sm btn-info',
                 exportOptions: {
                     stripHtml: false,
-                    columns: [0, 1]
+                    columns: [0, 1, 2, 3, 4]
                 }
             },
             @if (Auth::user()->role == 'admin')
@@ -87,7 +99,7 @@
 
     async function createData() {
         try {
-            const response = await hitData("{{ route('merks.create') }}", {}, 'GET');
+            const response = await hitData("{{ route('products.create') }}", {}, 'GET');
             $('#modal-row').html(response);
             $('#modalCreate').modal('show');
             $('#formCreate').on('submit', function(e) {
@@ -140,7 +152,7 @@
 
     async function updateData(id) {
         try {
-            const response = await hitData("{{ route('merks.edit', ':id') }}".replace(':id', id), {}, 'GET');
+            const response = await hitData("{{ route('products.edit', ':id') }}".replace(':id', id), {}, 'GET');
             $('#modal-row').html(response);
             $('#modalEdit').modal('show');
             $('#formEdit').on('submit', function(e) {
@@ -202,7 +214,7 @@
             cancelButtonColor: '#d33',
             confirmButtonText: 'Ya, hapus!'
         }).then((result) => {
-            var url = "{{ route('merks.destroy', ':id') }}";
+            var url = "{{ route('products.destroy', ':id') }}";
             url = url.replace(':id', id);
             if (result.value) {
                 const response = hitData(url, {}, 'DELETE');

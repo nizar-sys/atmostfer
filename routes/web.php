@@ -5,6 +5,7 @@ use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\DataTableController;
 use App\Http\Controllers\LandingController;
 use App\Http\Controllers\MerkController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\RouteController;
@@ -38,6 +39,7 @@ Route::middleware('auth')->prefix('dashboard')->group(function() {
     Route::get('/datatable/users', [UserController::class, 'userDataTable'])->name('users.datatables');
     Route::resource('users', UserController::class);
     Route::resource('merks', MerkController::class);
+    Route::resource('products', ProductController::class);
 });
 
 
@@ -45,4 +47,5 @@ Route::middleware('auth')->prefix('dashboard')->group(function() {
 Route::prefix('api')->name('datatable.')->group(function(){
     Route::get('/users', [DataTableController::class, 'getUsers'])->name('users');
     Route::get('/merks', [DataTableController::class, 'getMerks'])->name('merks');
+    Route::get('/products', [DataTableController::class, 'getProducts'])->name('products');
 });
