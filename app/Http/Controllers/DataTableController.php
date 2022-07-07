@@ -79,7 +79,7 @@ class DataTableController extends Controller
         return datatables()->of($products)
             ->addIndexColumn()
             ->editColumn('name', fn($product)=>str()->title($product->name))
-            ->editColumn('description', fn($product)=>str()->limit($product->description, 20))
+            ->editColumn('description', fn($product)=> strip_tags(str()->limit($product->description, 20)))
             ->editColumn('price', fn($product)=>'Rp.'. number_format($product->price, 0, ',', '.'))
             ->editColumn('merk_id', fn($product)=>str()->title($product->merk->name))
             ->addColumn('action', function ($product) {

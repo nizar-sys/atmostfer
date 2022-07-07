@@ -1,6 +1,7 @@
-<form action="{{route('products.store')}}" method="POST" id="formCreate">
+<form action="{{ route('products.store') }}" method="POST" id="formCreate">
     @csrf
-    <div class="modal fade" id="modalCreate" tabindex="-1" role="dialog" aria-labelledby="modalCreateLabel" aria-hidden="true">
+    <div class="modal fade" id="modalCreate" tabindex="-1" role="dialog" aria-labelledby="modalCreateLabel"
+        aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -14,16 +15,18 @@
                         <div class="col-6">
                             <div class="form-group mb-3">
                                 <label for="name">Product Name</label>
-                                <input type="text" class="form-control @error('name') is-invalid @enderror" id="name-input"
-                                    placeholder="Product Name" value="{{ old('name') }}" name="name">
+                                <input type="text" class="form-control @error('name') is-invalid @enderror"
+                                    id="name-input" placeholder="Product Name" value="{{ old('name') }}"
+                                    name="name">
                                 <div class="d-block invalid-feedback"></div>
                             </div>
                         </div>
                         <div class="col-6">
                             <div class="form-group mb-3">
                                 <label for="price">Product Price</label>
-                                <input type="number" class="form-control @error('price') is-invalid @enderror" id="price-input"
-                                    placeholder="Product Price" value="{{ old('price') }}" name="price">
+                                <input type="number" class="form-control @error('price') is-invalid @enderror"
+                                    id="price-input" placeholder="Product Price" value="{{ old('price') }}"
+                                    name="price">
                                 <div class="d-block invalid-feedback"></div>
                             </div>
                         </div>
@@ -34,10 +37,12 @@
                         <div class="col-12">
                             <div class="form-group mb-3">
                                 <label for="merk_id">Merks</label>
-                                <select class="form-control select-custom @error('merk_id') is-invalid @enderror" id="merk-input" name="merk_id">
+                                <select class="form-control select-custom @error('merk_id') is-invalid @enderror"
+                                    id="merk-input" name="merk_id">
                                     <option value="" selected>---Merks---</option>
                                     @foreach ($merks as $merk)
-                                        <option value="{{ $merk->id }}" @if (old('merk_id') == $merk->id) selected @endif>
+                                        <option value="{{ $merk->id }}"
+                                            @if (old('merk_id') == $merk->id) selected @endif>
                                             {{ str()->title($merk->name) }}</option>
                                     @endforeach
                                 </select>
@@ -49,9 +54,14 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="form-group mb-3">
-                                <label for="description">Product Name</label>
-                                <input type="text" class="form-control @error('description') is-invalid @enderror" id="description-input"
-                                    placeholder="Product Name" value="{{ old('description') }}" name="description">
+                                <label for="description">Product Description</label>
+                                <textarea class="form-control @error('description') is-invalid @enderror" id="description-input"
+                                    placeholder="Product Description" name="description" cols="30" rows="10">
+                                {{ old('description') }}
+                                </textarea>
+                                <script>
+                                    CKEDITOR.replace('description-input');
+                                </script>
                                 <div class="d-block invalid-feedback"></div>
                             </div>
                         </div>
@@ -63,5 +73,5 @@
                 </div>
             </div>
         </div>
-    </div>    
+    </div>
 </form>

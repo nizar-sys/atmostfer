@@ -51,8 +51,13 @@
                         <div class="col-12">
                             <div class="form-group mb-3">
                                 <label for="description">Product Name</label>
-                                <input type="text" class="form-control @error('description') is-invalid @enderror" id="description-input"
-                                    placeholder="Product Name" value="{{ old('description', $product->description) }}" name="description">
+                                <textarea class="form-control @error('description') is-invalid @enderror" id="description-input"
+                                    placeholder="Product Description" name="description" cols="30" rows="10">
+                                {{ old('description', $product->description) }}
+                                </textarea>
+                                <script>
+                                    CKEDITOR.replace('description-input');
+                                </script>
                                 <div class="d-block invalid-feedback"></div>
                             </div>
                         </div>

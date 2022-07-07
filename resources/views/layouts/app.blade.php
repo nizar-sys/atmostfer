@@ -55,6 +55,10 @@
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
+    <link rel="stylesheet" href="{{ asset('/assets/css/dropify.css') }}">
+    <script src="{{ asset('/assets/js/dropify.js') }}"></script>
+    <script src="https://cdn.ckeditor.com/4.19.0/full-all/ckeditor.js"></script>
+
     @yield('c_css')
 </head>
 
@@ -254,6 +258,15 @@
             actionTextColor: '#212529',
         })
         @endif;
+
+        $('.dropify-media').dropify({
+            messages: {
+                default: 'Drag and drop a file here or click',
+                replace: 'Drag and drop or click to replace',
+                remove: 'Remove',
+                error: 'Ooops, something wrong happended.'
+            },
+        });
     </script>
     @yield('script')
 </body>
