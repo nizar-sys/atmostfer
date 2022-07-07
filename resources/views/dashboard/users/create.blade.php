@@ -95,7 +95,7 @@
 
                         <div class="form-group mb-3">
                             <label for="avatar">Avatar</label>
-                            <input type="file" class="form-control @error('avatar') is-invalid @enderror"
+                            <input type="file" class="form-control dropify-media @error('avatar') is-invalid @enderror"
                                 id="avatar" placeholder="Avatar pengguna"
                                 name="avatar">
 
