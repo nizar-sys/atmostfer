@@ -83,11 +83,17 @@ class DataTableController extends Controller
             ->editColumn('price', fn($product)=>'Rp.'. number_format($product->price, 0, ',', '.'))
             ->editColumn('merk_id', fn($product)=>str()->title($product->merk->name))
             ->addColumn('action', function ($product) {
-                $buttons = '<button onclick="updateData(\''.$product->id.'\')" class="btn btn-warning btn-sm">
+                $buttons = '
+
+                    <button onclick="addPhotos(\''.$product->id.'\')" title="Add product photos" class="btn btn-primary btn-sm">
+                    <i class="fas fa-camera"></i>
+                    </button>
+                
+                    <button onclick="updateData(\''.$product->id.'\')" title="Edit product" class="btn btn-warning btn-sm">
                     <i class="fas fa-pencil-alt"></i>
                     </button>
                     
-                    <button onclick="deleteData(\''.$product->id.'\')" class="btn btn-danger btn-sm">
+                    <button onclick="deleteData(\''.$product->id.'\')" title="Delete product" class="btn btn-danger btn-sm">
                         <i class="fas fa-trash"></i>
                     </button>
                     ';

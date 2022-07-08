@@ -39,6 +39,11 @@ Route::middleware('auth')->prefix('dashboard')->group(function() {
     Route::get('/datatable/users', [UserController::class, 'userDataTable'])->name('users.datatables');
     Route::resource('users', UserController::class);
     Route::resource('merks', MerkController::class);
+
+    Route::prefix('products')->group(function(){
+        Route::get('/products/{product}/add-photos', [ProductController::class, 'addPhotos'])->name('products.add-photos');
+        Route::post('/products/{product}/add-photos', [ProductController::class, 'storePhotos'])->name('products.store-photos');
+    }); # products group
     Route::resource('products', ProductController::class);
 });
 

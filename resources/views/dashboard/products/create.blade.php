@@ -15,7 +15,7 @@
                         <div class="col-6">
                             <div class="form-group mb-3">
                                 <label for="name">Product Name</label>
-                                <input type="text" class="form-control @error('name') is-invalid @enderror"
+                                <input required type="text" class="form-control @error('name') is-invalid @enderror"
                                     id="name-input" placeholder="Product Name" value="{{ old('name') }}"
                                     name="name">
                                 <div class="d-block invalid-feedback"></div>
@@ -24,7 +24,7 @@
                         <div class="col-6">
                             <div class="form-group mb-3">
                                 <label for="price">Product Price</label>
-                                <input type="number" class="form-control @error('price') is-invalid @enderror"
+                                <input required type="number" class="form-control @error('price') is-invalid @enderror"
                                     id="price-input" placeholder="Product Price" value="{{ old('price') }}"
                                     name="price">
                                 <div class="d-block invalid-feedback"></div>
@@ -37,7 +37,7 @@
                         <div class="col-12">
                             <div class="form-group mb-3">
                                 <label for="merk_id">Merks</label>
-                                <select class="form-control select-custom @error('merk_id') is-invalid @enderror"
+                                <select required class="form-control select-custom @error('merk_id') is-invalid @enderror"
                                     id="merk-input" name="merk_id">
                                     <option value="" selected>---Merks---</option>
                                     @foreach ($merks as $merk)
@@ -55,7 +55,7 @@
                         <div class="col-12">
                             <div class="form-group mb-3">
                                 <label for="description">Product Description</label>
-                                <textarea class="form-control @error('description') is-invalid @enderror" id="description-input"
+                                <textarea required class="form-control @error('description') is-invalid @enderror" id="description-input"
                                     placeholder="Product Description" name="description" cols="30" rows="10">
                                 {{ old('description') }}
                                 </textarea>

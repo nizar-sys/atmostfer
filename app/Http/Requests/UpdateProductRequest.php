@@ -13,7 +13,7 @@ class UpdateProductRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,22 @@ class UpdateProductRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'photos[]' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:1024',
+        ];
+    }
+
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array<string, string>
+     */
+    public function messages()
+    {
+        return [
+            'photos[].required' => 'Foto produk harus diisi',
+            'photos[].image' => 'Foto produk harus berupa gambar',
+            'photos[].mimes' => 'Foto produk harus berupa gambar',
+            'photos[].max' => 'Foto produk tidak boleh lebih dari 1 MB',
         ];
     }
 }

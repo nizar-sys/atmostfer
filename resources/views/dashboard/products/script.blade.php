@@ -117,6 +117,22 @@
             });
         }
     }
+    
+    async function addPhotos(id) {
+        try {
+            const response = await hitData("{{ route('products.add-photos', ':id') }}".replace(':id', id), {}, 'GET');
+            $('#modal-row').html(response);
+            $('#modalCreateOrUpdateProduct').modal('show');
+        } catch (error) {
+            Snackbar.show({
+                text: error.responseJSON.message,
+                poss: 'top-center',
+                showAction: false,
+                duration: 5000,
+                backgroundColor: '#dc3545'
+            });
+        }
+    }
 
     async function updateData(id) {
         try {

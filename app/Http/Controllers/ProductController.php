@@ -6,6 +6,7 @@ use App\Models\Product;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use App\Models\Merk;
+use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
@@ -101,5 +102,39 @@ class ProductController extends Controller
             'status' => true,
             'message' => 'Data berhasil dihapus',
         ]);
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function addPhotos(Product $product)
+    {
+        return view('dashboard.products.add-photos', compact('product'))->render();
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \App\Http\Requests\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function storePhotos(Request $request, Product $product)
+    {
+        if($request->hasFile('photos')) {
+            $photos = $request->file('photos');
+            foreach($photos as $photo) {
+                $imageName = time() .'-'. $photo->getClientOriginalName();
+                $photo->move(public_path('/uploads/images'), $imageName);
+                $product->imageProducts()->create([
+                    'filename' => $imageName
+                ]);
+            }
+
+            return back()->with('success', 'Photos has been uploaded');
+        }
+
+        return back()->with('error', 'No photos selected');
     }
 }
