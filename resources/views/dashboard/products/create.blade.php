@@ -1,6 +1,6 @@
 <form action="{{ route('products.store') }}" method="POST" id="formCreate">
     @csrf
-    <div class="modal fade" id="modalCreate" tabindex="-1" role="dialog" aria-labelledby="modalCreateLabel"
+    <div class="modal fade" id="modalCreateOrUpdateProduct" tabindex="-1" role="dialog" aria-labelledby="modalCreateLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">

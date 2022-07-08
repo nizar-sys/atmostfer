@@ -1,11 +1,11 @@
-<form action="{{route('products.update', $product->id)}}" method="POST" id="formEdit">
+<form action="{{route('products.update', $product->id)}}" method="POST" id="formEdit" onsubmit="storeOrUpdate($(this))">
     @csrf
     @method('PUT')
-    <div class="modal fade" id="modalEdit" tabindex="-1" role="dialog" aria-labelledby="modalCreateLabel" aria-hidden="true">
+    <div class="modal fade" id="modalCreateOrUpdateProduct" tabindex="-1" role="dialog" aria-labelledby="modalCreateLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="modalCreateLabel">Add Product</h5>
+                    <h5 class="modal-title" id="modalCreateLabel">Edit Product : {{str()->title($product->name)}}</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -50,10 +50,10 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="form-group mb-3">
-                                <label for="description">Product Name</label>
+                                <label for="description">Product Description</label>
                                 <textarea class="form-control @error('description') is-invalid @enderror" id="description-input"
                                     placeholder="Product Description" name="description" cols="30" rows="10">
-                                {{ old('description', $product->description) }}
+                                {!! $product->description !!}
                                 </textarea>
                                 <script>
                                     CKEDITOR.replace('description-input');

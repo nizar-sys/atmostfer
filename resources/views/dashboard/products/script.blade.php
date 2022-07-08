@@ -1,5 +1,5 @@
 <script>
-    $(document).ready(()=>{
+    $(document).ready(() => {
         $('.select-custom').select2();
     })
     var tablePengguna = $('#table-data').DataTable({
@@ -101,43 +101,11 @@
         try {
             const response = await hitData("{{ route('products.create') }}", {}, 'GET');
             $('#modal-row').html(response);
-            $('#modalCreate').modal('show');
+            $('#modalCreateOrUpdateProduct').modal('show');
             $('#formCreate').on('submit', function(e) {
                 e.preventDefault();
                 var form = $(this);
-                var data = {};
-                // serialize data in array
-                var serializedData = form.serializeArray();
-                serializedData.forEach(function(item) {
-                    data[item.name] = item.value;
-                });
-                var url = form.attr('action');
-                var method = form.attr('method');
-                hitData(url, data, method).then((response) => {
-                    $('#modalCreate').modal('hide');
-                    tablePengguna.ajax.reload();
-                    Snackbar.show({
-                        text: response.message,
-                        poss: "top-right",
-                        actionTextColor: "#fff",
-                        backgroundColor: "#27ae60",
-                        showAction: false,
-                        duration: 3000,
-                    });
-                }).catch((error) => {
-                    if (error.status == 422) {
-                        inputInvalid(error.responseJSON.errors);
-                        Snackbar.show({
-                            text: 'Whoops! Terjadi kesalahan',
-                            post: 'top-center',
-                            actionTextColor: '#fff',
-                            backgroundColor: '#dc3545',
-                            showAction: true,
-                            actionText: 'Close',
-                            duration: 3000,
-                        });
-                    }
-                });
+                storeOrUpdate(form);
             });
         } catch (error) {
             Snackbar.show({
@@ -154,43 +122,56 @@
         try {
             const response = await hitData("{{ route('products.edit', ':id') }}".replace(':id', id), {}, 'GET');
             $('#modal-row').html(response);
-            $('#modalEdit').modal('show');
+            $('#modalCreateOrUpdateProduct').modal('show');
             $('#formEdit').on('submit', function(e) {
                 e.preventDefault();
-                var form = $(this);
-                var data = {};
-                // serialize data in array
-                var serializedData = form.serializeArray();
-                serializedData.forEach(function(item) {
-                    data[item.name] = item.value;
+                storeOrUpdate($(this));
+            });
+        } catch (error) {
+            Snackbar.show({
+                text: error.responseJSON.message,
+                poss: 'top-center',
+                showAction: false,
+                duration: 5000,
+                backgroundColor: '#dc3545'
+            });
+        }
+    }
+
+    async function storeOrUpdate(form) {
+        try {
+            var data = {};
+            // serialize data in array
+            var serializedData = form.serializeArray();
+            serializedData.forEach(function(item) {
+                data[item.name] = item.value;
+            });
+            var url = form.attr('action');
+            var method = form.attr('method');
+            hitData(url, data, method).then((response) => {
+                $('#modalCreateOrUpdateProduct').modal('hide');
+                tablePengguna.ajax.reload();
+                Snackbar.show({
+                    text: response.message,
+                    poss: "top-right",
+                    actionTextColor: "#fff",
+                    backgroundColor: "#27ae60",
+                    showAction: false,
+                    duration: 3000,
                 });
-                var url = form.attr('action');
-                var method = form.attr('method');
-                hitData(url, data, method).then((response) => {
-                    $('#modalEdit').modal('hide');
-                    tablePengguna.ajax.reload();
+            }).catch((error) => {
+                if (error.status == 422) {
+                    inputInvalid(error.responseJSON.errors);
                     Snackbar.show({
-                        text: response.message,
-                        poss: "top-right",
-                        actionTextColor: "#fff",
-                        backgroundColor: "#27ae60",
-                        showAction: false,
+                        text: 'Whoops! Terjadi kesalahan',
+                        post: 'top-center',
+                        actionTextColor: '#fff',
+                        backgroundColor: '#dc3545',
+                        showAction: true,
+                        actionText: 'Close',
                         duration: 3000,
                     });
-                }).catch((error) => {
-                    if (error.status == 422) {
-                        inputInvalid(error.responseJSON.errors);
-                        Snackbar.show({
-                            text: 'Whoops! Terjadi kesalahan',
-                            post: 'top-center',
-                            actionTextColor: '#fff',
-                            backgroundColor: '#dc3545',
-                            showAction: true,
-                            actionText: 'Close',
-                            duration: 3000,
-                        });
-                    }
-                });
+                }
             });
         } catch (error) {
             Snackbar.show({
