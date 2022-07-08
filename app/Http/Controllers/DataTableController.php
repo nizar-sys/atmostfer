@@ -78,7 +78,7 @@ class DataTableController extends Controller
 
         return datatables()->of($products)
             ->addIndexColumn()
-            ->editColumn('name', fn($product)=>str()->title($product->name))
+            ->editColumn('name', fn($product)=> '<a href="'.route('products.show', $product->id).'">'.str()->title($product->name).'</a>')
             ->editColumn('description', fn($product)=> strip_tags(str()->limit($product->description, 20)))
             ->editColumn('price', fn($product)=>'Rp.'. number_format($product->price, 0, ',', '.'))
             ->editColumn('merk_id', fn($product)=>str()->title($product->merk->name))
@@ -100,7 +100,7 @@ class DataTableController extends Controller
 
                 return $buttons;
             })
-            ->rawColumns(['action'])
+            ->rawColumns(['action', 'name'])
             ->make(true);
     }
 }

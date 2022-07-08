@@ -54,11 +54,7 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        return response()->json([
-            'status' => true,
-            'message' => 'Product detail',
-            $product
-        ]);
+        return view('dashboard.products.show', compact('product'));
     }
 
     /**
@@ -126,7 +122,7 @@ class ProductController extends Controller
             $photos = $request->file('photos');
             foreach($photos as $photo) {
                 $imageName = time() .'-'. $photo->getClientOriginalName();
-                $photo->move(public_path('/uploads/images'), $imageName);
+                $photo->move(public_path('uploads/images/'), $imageName);
                 $product->imageProducts()->create([
                     'filename' => $imageName
                 ]);

@@ -20,6 +20,12 @@ class Product extends Model
         return $this->hasMany(ImageProduct::class, 'product_id', 'id');
     }
 
+    // first image of product
+    public function image()
+    {
+        return $this->hasOne(ImageProduct::class, 'product_id', 'id')->orderBy('id', 'asc');
+    }
+
     // boot function
     protected static function boot()
     {
