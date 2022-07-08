@@ -1,11 +1,11 @@
 @extends('layouts.app')
 @section('title', 'Products ' . str()->title($product->name))
 
-@section('title-header', 'Products {{str()->title($product->name)}}')
+@section('title-header', 'Products {{ str()->title($product->name) }}')
 @section('breadcrumb')
     <li class="breadcrumb-item"><a href="{{ route('home') }}">Dashboard</a></li>
     <li class="breadcrumb-item"><a href="{{ route('products.index') }}">Products</a></li>
-    <li class="breadcrumb-item active">Products {{str()->limit(str()->title($product->name), 10)}}</li>
+    <li class="breadcrumb-item active">Products {{ str()->limit(str()->title($product->name), 10) }}</li>
 @endsection
 
 @section('c_css')
@@ -78,24 +78,33 @@
         <div class="col-12">
             <div class="card shadow">
                 <div class="card-header bg-transparent border-0 text-dark">
-                    <h2 class="card-title h3">Products {{str()->title($product->name)}}</h2>
+                    <h2 class="card-title h3">Products {{ str()->title($product->name) }}</h2>
 
                     <section id="prodetails" class="section-p1">
-                        <div class="single-pro-image">
-                            <img src="{{ asset('/uploads/images/' . $product->image->filename) }}" width="100%" id="MainImg" alt="">
-                
-                            <div class="small-image-group">
-                                @foreach ($product->imageProducts()->get(['filename']) as $photo)
-                                    <div class="small-image-col" class="small-img">
-                                        <img onclick="changeImage(this.src)" src="{{ asset('/uploads/images/' . $photo->filename) }}" alt="" width="100%">
-                                    </div>
-                                @endforeach
+                        @if (!is_null($product->image) || $product->imageProducts->count() > 0)
+                            <div class="single-pro-image">
+                                <img src="{{ asset('/uploads/images/' . $product->image->filename) }}" width="100%"
+                                    id="MainImg" alt="">
+
+                                <div class="small-image-group">
+                                    @foreach ($product->imageProducts()->get(['filename']) as $photo)
+                                        <div class="small-image-col" class="small-img">
+                                            <img onclick="changeImage(this.src)"
+                                                src="{{ asset('/uploads/images/' . $photo->filename) }}" alt=""
+                                                width="100%">
+                                        </div>
+                                    @endforeach
+                                </div>
                             </div>
-                        </div>
-                
+                        @else
+                            <div class="single-pro-image">
+                                <img src="https://www.freeiconspng.com/thumbs/no-image-icon/no-image-icon-13.png" width="100%" id="MainImg" alt="No Image" title="No Image">
+                            </div>
+                        @endif
+
                         <div class="single-pro-details">
-                            <h4>{{str()->title($product->name)}}</h4>
-                            <h2>Rp.{{number_format($product->price, 0, ',', '.')}}</h2>
+                            <h4>{{ str()->title($product->name) }}</h4>
+                            <h2>Rp.{{ number_format($product->price, 0, ',', '.') }}</h2>
                             <h4>Product Details</h4>
                             <span>
                                 {!! $product->description !!}
