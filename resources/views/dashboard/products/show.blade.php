@@ -91,7 +91,7 @@
                                         <div class="small-image-col" class="small-img">
                                             <img onclick="changeImage(this.src)"
                                                 src="{{ asset('/uploads/images/' . $photo->filename) }}" alt=""
-                                                width="100%">
+                                                width="100%" style="max-width: 250px">
                                         </div>
                                     @endforeach
                                 </div>

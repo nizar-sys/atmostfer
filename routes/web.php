@@ -22,7 +22,10 @@ use App\Http\Controllers\RouteController;
 */
 
 # ------ Unauthenticated routes ------ #
-Route::get('/', [LandingController::class, 'index']);
+Route::name('landing.')->group(function(){
+    Route::get('/', [LandingController::class, 'index'])->name('home');
+    Route::get('/shop', [LandingController::class, 'shop'])->name('shop');
+});
 require __DIR__.'/auth.php';
 
 
